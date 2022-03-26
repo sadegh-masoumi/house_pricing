@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block header %}
+<div class="main">
+    <form class="form" method="POST" action="{% url 'prediction' %}">
+        <div class="title">Predict Price</div>
+        {% csrf_token %}
+        <input type="number" name="room" placeholder="Rooms Number" value="{{ room }}" required>
+        <input type="number" name="area" placeholder="Area" value="{{ area }}" required>
+        <input type="text" list="locations" name="address" placeholder="Address" value="{{ address }}" required>
+        <datalist id="locations">
+            {% for loc in locations %}
+                <option value="{{ loc }}">
+            {% endfor %}
+        </datalist>
+        <span class="feature-items">
+            <span>Elevator <input type="checkbox" name="has_elevator" value="has_elevator"></span>
+            <span>Parking <input type="checkbox" name="has_parking" value="has_parking"></span>
+            <span>Warehouse <input type="checkbox" name="has_warehouse" value="has_warehouse"></span>
+        </span>
+        <input type="submit" value="Predict">
+    </form>
+</div>
+
+{% if predict == True %}
+<script>
+        Swal.fire(
+          'Prediction',
+          'This apartment worth {{ price }} Billion Toman',
+          'success'
+        )
+</script>
+{% elif message == 'not_valid_address' %}
+<script>
+        Swal.fire(
+          'Invalid Address',
+          'Please enter an exist address',
+          'error'
+        )
+</script>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %} {% endblock %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/analysis.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile-card.css' %}">
+        <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" defer />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<header class="header-section">
+    <nav class="nav topnav" id="myTopnav">
+        <h3><a class="link-main" href="{% url 'home' %}">KhaneYar</a></h3>
+        <ul class="nav-list">
+            <li><a class="simple-link" href="{% url 'apartment_list' %}">Apartments</a></li>
+            <li><a class="simple-link" href="{% url 'analysis' %}">Analysis</a></li>
+            <li><a class="simple-link" href="{% url 'prediction' %}">Price Prediction</a></li>
+            {% block itembutton %}
+            {% endblock %}
+            {% if request.user.is_authenticated %}
+                <li><a class="filled-link" href="{% url 'dashboard' %}">Profile</a></li>
+                <li><a class="filled-link" href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a class="filled-link" href="{% url 'login' %}">Login | Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% block header %}
+    {% endblock %}
+
+    <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+    </script>
+</header>
+{% block content %}
+{% endblock %}
+</body>
+</html>

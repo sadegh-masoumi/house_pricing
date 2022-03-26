@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block header %}
+<div class="main">
+    <form class="form" method="POST">
+        {% csrf_token %}
+        <div class="title">Login</div>
+        <input type="text" name="email" value="{{ email }}" placeholder="Email Address" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+        <span style="color: white;">
+            Do you want create an account?
+            <a class="link" href="{% url 'register' %}">Register Here</a>
+        </span>
+    </form>
+</div>
+{% if message == 'success_register' %}
+    <script>
+        Swal.fire(
+          'Success',
+          'Your account created successfully',
+          'success'
+        )
+    </script>
+{% elif message == 'not_found' %}
+    <script>
+        Swal.fire(
+          'Wrong Information',
+          'There is no user with this email and password',
+          'error'
+        )
+    </script>
+{% endif %}
+{% endblock %}

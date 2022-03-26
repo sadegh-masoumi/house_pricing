@@ -1,0 +1,59 @@
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 60px;
+    width: 300px;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    transition: 300ms;
+}
+
+.stat-item:hover {
+    box-shadow: 0 3px 40px rgba(0, 0, 0, 0.3);
+}
+
+.stat-item img {
+    width: 60px;
+}
+
+.stat-item h2 {
+    font-size: 1.1rem;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.stat-item h3 {
+    font-weight: normal;
+    font-size: 1rem;
+    color: gray;
+}
+
+.chart {
+    padding: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    transition: 250ms;
+}
+
+.chart:hover {
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+}
+
+canvas {
+    width: 300px;
+}
+
+.chart-section {
+    margin-top: 30px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+}
