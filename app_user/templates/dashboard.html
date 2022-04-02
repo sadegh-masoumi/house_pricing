@@ -3,103 +3,103 @@
 {% load static %}
 
 {% block header %}
-<div class="modal">
-    <form class="form" method="POST" action="{% url 'apartment_create' %}">
-        <div class="close-search-container">
-            <img src="{% static 'img/close.png' %}" id="close-search">
-        </div>
-        <div class="title">Add Apartment</div>
-        {% csrf_token %}
-        <input type="number" name="room" placeholder="Rooms Number" value="{{ room }}" required>
-        <input type="number" name="area" placeholder="Area" value="{{ area }}" required>
-        <input type="number" name="price" placeholder="Price" value="{{ price }}" required>
-        <input type="text" list="locations" name="address" placeholder="Address" value="{{ address }}" required>
-        <datalist id="locations">
-            {% for loc in locations %}
-                <option value="{{ loc }}">
-            {% endfor %}
-        </datalist>
-        <span class="feature-items">
+    <div class="modal">
+        <form class="form" method="POST" action="{% url 'apartment_create' %}">
+            <div class="close-search-container">
+                <img src="{% static 'img/close.png' %}" id="close-search">
+            </div>
+            <div class="title">Add Apartment</div>
+            {% csrf_token %}
+            <input type="number" name="room" placeholder="Rooms Number" value="{{ room }}" required>
+            <input type="number" name="area" placeholder="Area" value="{{ area }}" required>
+            <input type="number" name="price" placeholder="Price" value="{{ price }}" required>
+            <input type="text" list="locations" name="address" placeholder="Address" value="{{ address }}" required>
+            <datalist id="locations">
+                {% for loc in locations %}
+                    <option value="{{ loc }}">
+                {% endfor %}
+            </datalist>
+            <span class="feature-items">
             <span>Elevator <input type="checkbox" name="has_elevator" value="has_elevator"></span>
             <span>Parking <input type="checkbox" name="has_parking" value="has_parking"></span>
             <span>Warehouse <input type="checkbox" name="has_warehouse" value="has_warehouse"></span>
         </span>
-        <input type="submit" value="Add Apartment">
-    </form>
-</div>
-<section class="manage">
-    <div class="wrapper">
-        <div class="profile-card js-profile-card">
-            <div class="profile-card__img">
-                <img src="{% static 'img/man.png' %}"
-                     alt="profile card">
-            </div>
-            <div class="profile-card__cnt js-profile-cnt">
-                <div class="profile-card__name">{{ request.user.first_name }} {{ request.user.last_name }}</div>
-                <div class="profile-card__txt">{{ request.user.email }}</div>
-                <div class="profile-card-loc">
-                    <span class="profile-card-loc__icon"></span>
-                    {{ request.user.phone }}
+            <input type="submit" value="Add Apartment">
+        </form>
+    </div>
+    <section class="manage">
+        <div class="wrapper">
+            <div class="profile-card js-profile-card">
+                <div class="profile-card__img">
+                    <img src="{% static 'img/man.png' %}"
+                         alt="profile card">
                 </div>
-                <div class="profile-card-inf">
-                    <div class="profile-card-inf__item">
-                        <div class="profile-card-inf__title">{{ home_count }}</div>
-                        <div class="profile-card-inf__txt">Apartments</div>
+                <div class="profile-card__cnt js-profile-cnt">
+                    <div class="profile-card__name">{{ request.user.first_name }} {{ request.user.last_name }}</div>
+                    <div class="profile-card__txt">{{ request.user.email }}</div>
+                    <div class="profile-card-loc">
+                        <span class="profile-card-loc__icon"></span>
+                        {{ request.user.phone }}
                     </div>
-                    <div class="profile-card-inf__item">
-                        <div class="profile-card-inf__title">{{ message_count }}</div>
-                        <div class="profile-card-inf__txt">Messages</div>
+                    <div class="profile-card-inf">
+                        <div class="profile-card-inf__item">
+                            <div class="profile-card-inf__title">{{ home_count }}</div>
+                            <div class="profile-card-inf__txt">Apartments</div>
+                        </div>
+                        <div class="profile-card-inf__item">
+                            <div class="profile-card-inf__title">{{ message_count }}</div>
+                            <div class="profile-card-inf__txt">Messages</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
         <div class="management">
-        <div class="manage-card">
-            <h3>My Messenger</h3>
-            <img src="{% static 'img/chat.png' %}">
-            <a class="button" href="{% url 'chat_all' %}">Text Somebody</a>
+            <div class="manage-card">
+                <h3>My Messenger</h3>
+                <img src="{% static 'img/chat.png' %}">
+                <a class="button" href="{% url 'chat_all' %}">Text Somebody</a>
+            </div>
+            <div class="manage-card">
+                <h3>My Apartments</h3>
+                <img src="{% static 'img/skyscraper.png' %}">
+                <a class="button" href="{% url 'apartment_list_user' email=request.user.email %}">Show Me</a>
+            </div>
+            <div class="manage-card">
+                <h3>Add Apartment</h3>
+                <img src="{% static 'img/new_apartment.png' %}">
+                <a class="button" id="search">Add New</a>
+            </div>
+            <div class="manage-card mid-card">
+                <h3>Analyze Tool</h3>
+                <img src="{% static 'img/evaluation.png' %}">
+                <a class="button" href="{% url 'analysis' %}">Start Analyze</a>
+            </div>
+            <div class="manage-card">
+                <h3>Prediction Tool</h3>
+                <img src="{% static 'img/dices.png' %}">
+                <a class="button" href="{% url 'prediction' %}">Predict How Many?</a>
+            </div>
         </div>
-        <div class="manage-card">
-            <h3>My Apartments</h3>
-            <img src="{% static 'img/skyscraper.png' %}">
-            <a class="button" href="{% url 'apartment_list_user' email=request.user.email %}">Show Me</a>
-        </div>
-        <div class="manage-card">
-            <h3>Add Apartment</h3>
-            <img src="{% static 'img/new_apartment.png' %}">
-            <a class="button" id="search">Add New</a>
-        </div>
-        <div class="manage-card mid-card">
-            <h3>Analyze Tool</h3>
-            <img src="{% static 'img/evaluation.png' %}">
-            <a class="button" href="{% url 'analysis' %}">Start Analyze</a>
-        </div>
-        <div class="manage-card">
-            <h3>Prediction Tool</h3>
-            <img src="{% static 'img/dices.png' %}">
-            <a class="button" href="{% url 'prediction' %}">Predict How Many?</a>
-        </div>
-    </div>
-</section>
-<script src="{% static 'js/modal_add_apartment.js' %}"></script>
-{% if message == 'added_successfully' %}
-    <script>
-        Swal.fire(
-          'Success',
-          'New apartment created successfully',
-          'success'
-        )
-    </script>
-{% elif message == 'not_added' %}
-    <script>
-        showSearchForm();
-        Swal.fire(
-          'Invalid Address',
-          'Please enter an exist address',
-          'error'
-        )
-    </script>
-{% endif %}
+    </section>
+    <script src="{% static 'js/modal_add_apartment.js' %}"></script>
+    {% if message == 'added_successfully' %}
+        <script>
+            Swal.fire(
+                'Success',
+                'New apartment created successfully',
+                'success'
+            )
+        </script>
+    {% elif message == 'not_added' %}
+        <script>
+            showSearchForm();
+            Swal.fire(
+                'Invalid Address',
+                'Please enter an exist address',
+                'error'
+            )
+        </script>
+    {% endif %}
 
 {% endblock %}
