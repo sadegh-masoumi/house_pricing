@@ -3,60 +3,60 @@
 {% load static %}
 
 {% block header %}
-<div class="header">
-    <img class="main-img" src="{% static 'img/apartment.jpeg' %}">
-    <h1 class="title">KhaneYar <br> Analyze Then Buy Safe</h1>
-</div>
+    <div class="header">
+        <img class="main-img" src="{% static 'img/apartment.jpeg' %}">
+        <h1 class="title">KhaneYar <br> Analyze Then Buy Safe</h1>
+    </div>
 {% endblock %}
 
 {% block content %}
-<section class="service-section">
-    <h1 class="title">Services</h1>
-    <div class="services">
-        <div class="service-card">
-            <h3>Apartments</h3>
-            <p>You can see many apartments with their information like address,
-                number of rooms and etc. You also access to the price of house. </p>
-            <img src="{% static 'img/city.jpeg' %}">
-            <a class="button" href="{% url 'apartment_list' %}">Let's Buy</a>
+    <section class="service-section">
+        <h1 class="title">Services</h1>
+        <div class="services">
+            <div class="service-card">
+                <h3>Apartments</h3>
+                <p>You can see many apartments with their information like address,
+                    number of rooms and etc. You also access to the price of house. </p>
+                <img src="{% static 'img/city.jpeg' %}">
+                <a class="button" href="{% url 'apartment_list' %}">Let's Buy</a>
+            </div>
+            <div class="service-card mid-card">
+                <h3>Analysis</h3>
+                <p>Analyze apartments and see for example how many house in Tajrish
+                    are larger than 200 meters. You can also see many other statistics.</p>
+                <img src="{% static 'img/analysis.jpeg' %}">
+                <a class="button" href="{% url 'analysis' %}">Let's Analyze</a>
+            </div>
+            <div class="service-card">
+                <h3>Price Prediction</h3>
+                <p>Enter the information of your apartment and see how much it does worth?
+                    The final price will be based on apartments in the website.</p>
+                <img src="{% static 'img/price.jpeg' %}">
+                <a class="button" href="{% url 'prediction' %}">Let's Predict</a>
+            </div>
         </div>
-        <div class="service-card mid-card">
-            <h3>Analysis</h3>
-            <p>Analyze apartments and see for example how many house in Tajrish
-                are larger than 200 meters. You can also see many other statistics.</p>
-            <img src="{% static 'img/analysis.jpeg' %}">
-            <a class="button" href="{% url 'analysis' %}">Let's Analyze</a>
-        </div>
-        <div class="service-card">
-            <h3>Price Prediction</h3>
-            <p>Enter the information of your apartment and see how much it does worth?
-                The final price will be based on apartments in the website.</p>
-            <img src="{% static 'img/price.jpeg' %}">
-            <a class="button" href="{% url 'prediction' %}">Let's Predict</a>
-        </div>
-    </div>
-</section>
-<section class="contact-section">
-    <h3 class="title">Contact Developer</h3>
-    <form class="contact-form" method="POST" action="{% url 'send_email' %}">
-        {% csrf_token %}
-        <div class="main-info">
-            <input class="textbox" type="text" name="name" placeholder="Full Name" required>
-            <input class="textbox" type="email" name="email" placeholder="Email" required>
-        </div>
-        <textarea placeholder="Message" class="bigtextbox" name="message" required></textarea>
-        <input class="submit-btn" type="submit" value="Send Message">
-    </form>
-</section>
+    </section>
+    <section class="contact-section">
+        <h3 class="title">Contact Developer</h3>
+        <form class="contact-form" method="POST" action="{% url 'send_email' %}">
+            {% csrf_token %}
+            <div class="main-info">
+                <input class="textbox" type="text" name="name" placeholder="Full Name" required>
+                <input class="textbox" type="email" name="email" placeholder="Email" required>
+            </div>
+            <textarea placeholder="Message" class="bigtextbox" name="message" required></textarea>
+            <input class="submit-btn" type="submit" value="Send Message">
+        </form>
+    </section>
 
-{% if email_sent == 'success' %}
-    <script>
-        Swal.fire(
-          'Success',
-          'Your message has been sent.',
-          'success'
-        )
-    </script>
-{% endif %}
+    {% if email_sent == 'success' %}
+        <script>
+            Swal.fire(
+                'Success',
+                'Your message has been sent.',
+                'success'
+            )
+        </script>
+    {% endif %}
 
 {% endblock %}

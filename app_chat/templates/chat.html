@@ -5,69 +5,69 @@
 {% load md5_hash %}
 
 {% block header %}
-<div class="center">
-    <div class="contacts">
-        <h2>
-            <img src="{% static 'img/chat.png' %}" style="width: 32px;">
-            People
-        </h2>
-        {% for item in chat %}
-        <div class="contact" id="{{ item.0.email|md5_string }}">
-            <div class="pic" style="background-image: url({% static 'img/man.png' %});"></div>
-            <div class="name">
-                {{ item.0.first_name }} {{ item.0.last_name }}
-            </div>
-            <div class="message">
-                {{ item.1.0.text|truncatechars:30 }}
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    <div class="chat">
-        <div class="contact bar">
-            <div class="pic" style="background-image: url({% static 'img/man.png' %});"></div>
-            <div class="name">
-                {{ chat.0.0.first_name }} {{ chat.0.0.last_name }}
-            </div>
-            <div class="seen">
-                {{ chat.0.1.0.time }}
-            </div>
-        </div>
-        <div class="messages" id="chat">
-            {% for item in chat.0.1 %}
-            {% if item.sender == request.user %}
-            <div class="message parker">
-                {{ item.text }}
-            </div>
-            {% else %}
-            <div class="message stark">
-                {{ item.text }}
-            </div>
-            {% endif %}
+    <div class="center">
+        <div class="contacts">
+            <h2>
+                <img src="{% static 'img/chat.png' %}" style="width: 32px;">
+                People
+            </h2>
+            {% for item in chat %}
+                <div class="contact" id="{{ item.0.email|md5_string }}">
+                    <div class="pic" style="background-image: url({% static 'img/man.png' %});"></div>
+                    <div class="name">
+                        {{ item.0.first_name }} {{ item.0.last_name }}
+                    </div>
+                    <div class="message">
+                        {{ item.1.0.text|truncatechars:30 }}
+                    </div>
+                </div>
             {% endfor %}
         </div>
-        <form id="send-form" method="POST" action="{% url 'send' %}">
-            {% csrf_token %}
-            <div class="input">
-                <input placeholder="Type Something Here" type="text" name="text"/>
-                <input type="hidden" name="recipient" value="{{ chat.0.0.email }}">
-                <img id="send" src="{% static 'img/send.png' %}" style="width: 28px;">
+        <div class="chat">
+            <div class="contact bar">
+                <div class="pic" style="background-image: url({% static 'img/man.png' %});"></div>
+                <div class="name">
+                    {{ chat.0.0.first_name }} {{ chat.0.0.last_name }}
+                </div>
+                <div class="seen">
+                    {{ chat.0.1.0.time }}
+                </div>
             </div>
-            <BR>
-        </form>
+            <div class="messages" id="chat">
+                {% for item in chat.0.1 %}
+                    {% if item.sender == request.user %}
+                        <div class="message parker">
+                            {{ item.text }}
+                        </div>
+                    {% else %}
+                        <div class="message stark">
+                            {{ item.text }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <form id="send-form" method="POST" action="{% url 'send' %}">
+                {% csrf_token %}
+                <div class="input">
+                    <input placeholder="Type Something Here" type="text" name="text"/>
+                    <input type="hidden" name="recipient" value="{{ chat.0.0.email }}">
+                    <img id="send" src="{% static 'img/send.png' %}" style="width: 28px;">
+                </div>
+                <BR>
+            </form>
+        </div>
     </div>
-</div>
 
-<script>
-  $( "#send" ).click(function() {
-    $( "#send-form" ).submit();
-  });
+    <script>
+        $("#send").click(function () {
+            $("#send-form").submit();
+        });
 
-  {% for item in chat %}
-    $( "#{{ item.0.email|md5_string }}" ).click(function() {
-      window.location.replace("{{ item.0.email }}");
-    });
-  {% endfor %}
-</script>
+        {% for item in chat %}
+            $("#{{ item.0.email|md5_string }}").click(function () {
+                window.location.replace("{{ item.0.email }}");
+            });
+        {% endfor %}
+    </script>
 
 {% endblock %}

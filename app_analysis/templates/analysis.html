@@ -4,155 +4,155 @@
 {% load humanize %}
 
 {% block header %}
-<div class="stats">
-    <div class="stat-item">
-        <div>
-            <h2>Average Apartments</h2>
-            <h3>{{ apartments_stats.tehran }} in Tehran</h3>
-            <h3>{{ apartments_stats.tajrish }} in Tajrish</h3>
-            <h3>{{ apartments_stats.pasdaran }} in Pasdaran</h3>
+    <div class="stats">
+        <div class="stat-item">
+            <div>
+                <h2>Average Apartments</h2>
+                <h3>{{ apartments_stats.tehran }} in Tehran</h3>
+                <h3>{{ apartments_stats.tajrish }} in Tajrish</h3>
+                <h3>{{ apartments_stats.pasdaran }} in Pasdaran</h3>
+            </div>
+            <img src="{% static 'img/static/apartment.svg' %}">
+
         </div>
-        <img src="{% static 'img/static/apartment.svg' %}">
-
-    </div>
-    <div class="stat-item">
-        <div>
-            <h2>Average Price</h2>
-            <h3>{{ price_stats.tehran|floatformat:1  }} Billion in Tehran</h3>
-            <h3>{{ price_stats.tajrish|floatformat:1  }} Billion in Tajrish</h3>
-            <h3>{{ price_stats.pasdaran|floatformat:1 }} Billion in Pasdaran</h3>
+        <div class="stat-item">
+            <div>
+                <h2>Average Price</h2>
+                <h3>{{ price_stats.tehran|floatformat:1 }} Billion in Tehran</h3>
+                <h3>{{ price_stats.tajrish|floatformat:1 }} Billion in Tajrish</h3>
+                <h3>{{ price_stats.pasdaran|floatformat:1 }} Billion in Pasdaran</h3>
+            </div>
+            <img src="{% static 'img/static/price.svg' %}">
         </div>
-        <img src="{% static 'img/static/price.svg' %}">
-    </div>
-    <div class="stat-item">
-        <div>
-            <h2>Average Room</h2>
-            <h3>{{ room_stats.tehran|floatformat:1 }} Room in Tehran</h3>
-            <h3>{{ room_stats.tajrish|floatformat:1 }} Room in Tajrish</h3>
-            <h3>{{ room_stats.pasdaran|floatformat:1 }} Room in Pasdaran</h3>
+        <div class="stat-item">
+            <div>
+                <h2>Average Room</h2>
+                <h3>{{ room_stats.tehran|floatformat:1 }} Room in Tehran</h3>
+                <h3>{{ room_stats.tajrish|floatformat:1 }} Room in Tajrish</h3>
+                <h3>{{ room_stats.pasdaran|floatformat:1 }} Room in Pasdaran</h3>
+            </div>
+            <img src="{% static 'img/static/room.svg' %}">
         </div>
-        <img src="{% static 'img/static/room.svg' %}">
-    </div>
-    <div class="stat-item">
-        <div>
-            <h2>Total Locations</h2>
-            <h3>{{ loc_stats.tehran }} in Tehran</h3>
-            <h3>{{ loc_stats.first }} - Most popular</h3>
-            <h3>{{ loc_stats.second }} - Less popular</h3>
+        <div class="stat-item">
+            <div>
+                <h2>Total Locations</h2>
+                <h3>{{ loc_stats.tehran }} in Tehran</h3>
+                <h3>{{ loc_stats.first }} - Most popular</h3>
+                <h3>{{ loc_stats.second }} - Less popular</h3>
+            </div>
+            <img src="{% static 'img/static/location.svg' %}">
         </div>
-        <img src="{% static 'img/static/location.svg' %}">
-    </div>
-</div>
-
-<section class="chart-section">
-    <div class="chart">
-        <canvas id="loc-price-chart" width="300px" height="300px"></canvas>
     </div>
 
-    <div class="chart">
-        <canvas id="room-price-chart" width="300px" height="300px"></canvas>
-    </div>
+    <section class="chart-section">
+        <div class="chart">
+            <canvas id="loc-price-chart" width="300px" height="300px"></canvas>
+        </div>
 
-</section>
+        <div class="chart">
+            <canvas id="room-price-chart" width="300px" height="300px"></canvas>
+        </div>
 
-<script>
-    const labels = [{% for location in locations %} '{{ location.name }}', {% endfor %}];
-    const data = [{% for price in mean_prices %} {{ price }}, {% endfor %}];
-    const chart_area = document.getElementById("loc-price-chart").getContext('2d');
-    var gradientFill = chart_area.createLinearGradient(0, 0, 0, 1);
-    gradientFill.addColorStop(0, "rgba(30, 240, 100, 1)");
-    gradientFill.addColorStop(1, "rgba(10, 40, 145, 0.1)");
-    const dataset = {
-      labels: labels,
-      datasets: [{
-        borderWidth: 2,
-        label: 'Million Toman',
-        data: data,
-        fill: true,
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: gradientFill,
-        tension: 0.1,
-        pointBackgroundColor: "rgba(100, 53, 100, 0.3)",
-      }]
-    };
+    </section>
 
-    const config = {
-      type: 'line',
-      data: dataset,
-      options: {
-        maintainAspectRatio: false,
-        bezierCurve: true,
-        scales: {
-            xAxes: [{
-                gridLines: {
-                    color: "rgba(0, 0, 0, 0)",
-                }
-            }],
-            yAxes: [{
-                gridLines: {
-                    color: "rgba(0, 0, 0, 0)",
-                }
+    <script>
+        const labels = [{% for location in locations %} '{{ location.name }}', {% endfor %}];
+        const data = [{% for price in mean_prices %} {{ price }}, {% endfor %}];
+        const chart_area = document.getElementById("loc-price-chart").getContext('2d');
+        var gradientFill = chart_area.createLinearGradient(0, 0, 0, 1);
+        gradientFill.addColorStop(0, "rgba(30, 240, 100, 1)");
+        gradientFill.addColorStop(1, "rgba(10, 40, 145, 0.1)");
+        const dataset = {
+            labels: labels,
+            datasets: [{
+                borderWidth: 2,
+                label: 'Million Toman',
+                data: data,
+                fill: true,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: gradientFill,
+                tension: 0.1,
+                pointBackgroundColor: "rgba(100, 53, 100, 0.3)",
             }]
-        }
-      }
-    };
-    new Chart(chart_area, config);
+        };
 
-    chart_area.canvas.parentNode.style.height = '400px';
-    chart_area.canvas.parentNode.style.width = '600px';
-
-
-    // Second Chart
-    const labels_2 = [
-        '0 Room',
-        '1 Room',
-        '2 Room',
-        '3 Room',
-        '4 Room',
-        '5 Room',
-    ];
-    const data_2 = [{% for price in mean_price_room %} {{ price }}, {% endfor %}];
-    const chart_area_2 = document.getElementById("room-price-chart").getContext('2d');
-
-    const dataset_2 = {
-      labels: labels_2,
-      datasets: [{
-        borderWidth: 2,
-        label: 'Million Toman',
-        data: data_2,
-        fill: true,
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: gradientFill,
-        tension: 0.1,
-        pointBackgroundColor: "rgba(100, 53, 100, 0.3)",
-      }]
-    };
-
-    const config_2 = {
-      type: 'line',
-      data: dataset_2,
-      options: {
-        maintainAspectRatio: false,
-        bezierCurve: true,
-        scales: {
-            xAxes: [{
-                gridLines: {
-                    color: "rgba(0, 0, 0, 0)",
+        const config = {
+            type: 'line',
+            data: dataset,
+            options: {
+                maintainAspectRatio: false,
+                bezierCurve: true,
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            color: "rgba(0, 0, 0, 0)",
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            color: "rgba(0, 0, 0, 0)",
+                        }
+                    }]
                 }
-            }],
-            yAxes: [{
-                gridLines: {
-                    color: "rgba(0, 0, 0, 0)",
-                }
+            }
+        };
+        new Chart(chart_area, config);
+
+        chart_area.canvas.parentNode.style.height = '400px';
+        chart_area.canvas.parentNode.style.width = '600px';
+
+
+        // Second Chart
+        const labels_2 = [
+            '0 Room',
+            '1 Room',
+            '2 Room',
+            '3 Room',
+            '4 Room',
+            '5 Room',
+        ];
+        const data_2 = [{% for price in mean_price_room %} {{ price }}, {% endfor %}];
+        const chart_area_2 = document.getElementById("room-price-chart").getContext('2d');
+
+        const dataset_2 = {
+            labels: labels_2,
+            datasets: [{
+                borderWidth: 2,
+                label: 'Million Toman',
+                data: data_2,
+                fill: true,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: gradientFill,
+                tension: 0.1,
+                pointBackgroundColor: "rgba(100, 53, 100, 0.3)",
             }]
-        }
-      }
-    };
+        };
 
-    new Chart(chart_area_2, config_2);
+        const config_2 = {
+            type: 'line',
+            data: dataset_2,
+            options: {
+                maintainAspectRatio: false,
+                bezierCurve: true,
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            color: "rgba(0, 0, 0, 0)",
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            color: "rgba(0, 0, 0, 0)",
+                        }
+                    }]
+                }
+            }
+        };
 
-    chart_area_2.canvas.parentNode.style.height = '400px';
-    chart_area_2.canvas.parentNode.style.width = '600px';
+        new Chart(chart_area_2, config_2);
 
-</script>
+        chart_area_2.canvas.parentNode.style.height = '400px';
+        chart_area_2.canvas.parentNode.style.width = '600px';
+
+    </script>
 {% endblock %}
