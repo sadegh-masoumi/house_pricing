@@ -4,77 +4,77 @@
 {% load humanize %}
 
 {% block header %}
-<section class="apartment-list">
-    {% for house in apartment_list %}
-    <div class="courses-container">
-        <div class="course">
-            <div class="course-preview">
-                <h6>Apartment</h6>
-                <h2>{{ house.area }} Meters</h2>
-            </div>
-            <div class="course-info">
-                <h5>{{ house.address }}</h5>
-                <h6>{{ house.room }} Rooms</h6>
-                <br>
-                <h6>
-                    {% if house.has_elevator %}
-                    <span class="feature">Elevator</span>
-                    {% endif %}
-                    {% if house.has_parking %}
-                    <span class="feature">Parking</span>
-                    {% endif %}
-                    {% if house.has_warehouse %}
-                    <span class="feature">Warehouse</span>
-                    {% endif %}
-                    {% if not house.has_warehouse and not house.has_parking and not house.has_elevator %}
-                    <span class="feature">None</span>
-                    {% endif %}
-                </h6>
-                <br>
-                <h3>{{ house.price|floatformat:"0"|intcomma }} Toman</h3>
-                <form class="send-form" method="POST" action="{% url 'send' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="text" value="I want this house that has {{ house.room }} rooms &
+    <section class="apartment-list">
+        {% for house in apartment_list %}
+            <div class="courses-container">
+                <div class="course">
+                    <div class="course-preview">
+                        <h6>Apartment</h6>
+                        <h2>{{ house.area }} Meters</h2>
+                    </div>
+                    <div class="course-info">
+                        <h5>{{ house.address }}</h5>
+                        <h6>{{ house.room }} Rooms</h6>
+                        <br>
+                        <h6>
+                            {% if house.has_elevator %}
+                                <span class="feature">Elevator</span>
+                            {% endif %}
+                            {% if house.has_parking %}
+                                <span class="feature">Parking</span>
+                            {% endif %}
+                            {% if house.has_warehouse %}
+                                <span class="feature">Warehouse</span>
+                            {% endif %}
+                            {% if not house.has_warehouse and not house.has_parking and not house.has_elevator %}
+                                <span class="feature">None</span>
+                            {% endif %}
+                        </h6>
+                        <br>
+                        <h3>{{ house.price|floatformat:"0"|intcomma }} Toman</h3>
+                        <form class="send-form" method="POST" action="{% url 'send' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="text" value="I want this house that has {{ house.room }} rooms &
                                                             is located in {{ house.address }} &
                                                             has {{ house.area }} meters area also
                                                             worths {{ house.price|floatformat:'0'|intcomma }} Toman">
-                    <input type="hidden" name="recipient" value="{{ house.person }}">
-                    <a class="send btn">Chat</a>
-                </form>
+                            <input type="hidden" name="recipient" value="{{ house.person }}">
+                            <a class="send btn">Chat</a>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    {% endfor %}
-</section>
+        {% endfor %}
+    </section>
     {% if page_obj.paginator.num_pages > 1 %}
-    <div class='example'>
-        {% if page_obj.has_previous %}
-        <div class='text'><a class="link" href="?page={{ page_obj.previous_page_number }}">Prev</a></div>
-        {% else %}
-        <div class='text'><a class="link" href="?page={{ 1 }}">Prev</a></div>
-        {% endif %}
-        <div class='counter'>
-            <span class='number'>{{ page_obj.number }}</span>
-            <div class='background'></div>
-            <span class='number'> {{ page_obj.paginator.num_pages }} </span>
+        <div class='example'>
+            {% if page_obj.has_previous %}
+                <div class='text'><a class="link" href="?page={{ page_obj.previous_page_number }}">Prev</a></div>
+            {% else %}
+                <div class='text'><a class="link" href="?page={{ 1 }}">Prev</a></div>
+            {% endif %}
+            <div class='counter'>
+                <span class='number'>{{ page_obj.number }}</span>
+                <div class='background'></div>
+                <span class='number'> {{ page_obj.paginator.num_pages }} </span>
+            </div>
+            {% if page_obj.has_next %}
+                <div class='text'><a class="link" href="?page={{ page_obj.next_page_number }}">Next</a></div>
+            {% else %}
+                <div class='text'><a class="link" href="?page={{ page_obj.paginator.num_pages }}">Prev</a></div>
+            {% endif %}
         </div>
-        {% if page_obj.has_next %}
-        <div class='text'><a class="link" href="?page={{ page_obj.next_page_number }}">Next</a></div>
-        {% else %}
-        <div class='text'><a class="link" href="?page={{ page_obj.paginator.num_pages }}">Prev</a></div>
-        {% endif %}
-    </div>
     {% endif %}
     <script src="{% static 'js/modal.js' %}"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.js-example-basic-single').select2();
         });
 
-         $( ".send" ).click(function() {
-            $( ".send-form" ).submit();
-         });
+        $(".send").click(function () {
+            $(".send-form").submit();
+        });
 
 
     </script>
-    {% endblock %}
+{% endblock %}

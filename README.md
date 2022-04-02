@@ -1,7 +1,7 @@
 # house pricing
 web-application for store and analysis price of house in the Tehran,Iran
 
-# installation
+## installation
 
 ```bash
 python3 pip install -r requirement.txt
