@@ -102,7 +102,7 @@ class Logout(View):
 class Dashboard(LoginRequiredMixin, View):
     def get(self, request):
         locations = sorted(Address.objects.all().values_list('name', flat=True))
-        home_count = len(Apartment.objects.filter(User=request.user))
+        home_count = len(Apartment.objects.filter(person=request.user))
         message_count = len(Message.objects.filter(Q(sender=request.user) | Q(recipient=request.user)))
         return render(request, 'dashboard.html', {
             'locations': locations,

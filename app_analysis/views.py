@@ -60,7 +60,7 @@ class Analysis(LoginRequiredMixin, View):
             'second': count[-1][0],
         }
 
-        return render(request, 'analysis/analysis.html', {
+        return render(request, 'analysis.html', {
             'locations': locations,
             'mean_prices': mean_prices,
             'mean_price_room': mean_price_room,

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% load static %}
-{% load humanize %}
 
 {% block header %}
     <section class="apartment-list">
@@ -31,13 +30,13 @@
                             {% endif %}
                         </h6>
                         <br>
-                        <h3>{{ house.price|floatformat:"0"|intcomma }} Toman</h3>
+                        <h3>{{ house.price }} Toman</h3>
                         <form class="send-form" method="POST" action="{% url 'send' %}">
                             {% csrf_token %}
                             <input type="hidden" name="text" value="I want this house that has {{ house.room }} rooms &
                                                             is located in {{ house.address }} &
                                                             has {{ house.area }} meters area also
-                                                            worths {{ house.price|floatformat:'0'|intcomma }} Toman">
+                                                            worths {{ house.price }} Toman">
                             <input type="hidden" name="recipient" value="{{ house.person }}">
                             <a class="send btn">Chat</a>
                         </form>
