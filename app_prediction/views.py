@@ -42,7 +42,7 @@ class Prediction(LoginRequiredMixin, View):
                         has_warehouse,
                         has_elevator,
                         address
-        )
+                        )
         return render(request, 'prediction.html', {
             'predict': True, 'price': price
         })

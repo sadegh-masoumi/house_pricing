@@ -136,3 +136,4 @@ cython_debug/
 .idea/**/libraries
 *.iws /out/
 
+locale

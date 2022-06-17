@@ -18,18 +18,18 @@
 <body>
 <header class="header-section">
     <nav class="nav topnav" id="myTopnav">
-        <h3><a class="link-main" href="{% url 'home' %}">KhaneYar</a></h3>
+        <h3><a class="link-main" href="{% url 'home' %}">ملک بان</a></h3>
         <ul class="nav-list">
-            <li><a class="simple-link" href="{% url 'apartment_list' %}">Apartments</a></li>
-            <li><a class="simple-link" href="{% url 'analysis' %}">Analysis</a></li>
-            <li><a class="simple-link" href="{% url 'prediction' %}">Price Prediction</a></li>
+            <li><a class="simple-link" href="{% url 'apartment_list' %}">آپارتمان ها</a></li>
+            <li><a class="simple-link" href="{% url 'analysis' %}">تحلیل</a></li>
+            <li><a class="simple-link" href="{% url 'prediction' %}">تخمین قیمت</a></li>
             {% block itembutton %}
             {% endblock %}
             {% if request.user.is_authenticated %}
-                <li><a class="filled-link" href="{% url 'dashboard' %}">Profile</a></li>
-                <li><a class="filled-link" href="{% url 'logout' %}">Logout</a></li>
+                <li><a class="filled-link" href="{% url 'dashboard' %}">حساب کاربری</a></li>
+                <li><a class="filled-link" href="{% url 'logout' %}">خروج</a></li>
             {% else %}
-                <li><a class="filled-link" href="{% url 'login' %}">Login | Register</a></li>
+                <li><a class="filled-link" href="{% url 'login' %}">ورود | ثبت نام</a></li>
             {% endif %}
         </ul>
     </nav>

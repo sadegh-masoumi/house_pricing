@@ -6,10 +6,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from app_apartment.models import Apartment
 from app_apartment.models import Address
 
-from django.db.models import Avg
+from django.db.models import Avg, Count
 
 
 class Analysis(LoginRequiredMixin, View):
+    """
+    simple report of price and count of apartment and address
+    """
+
     def get(self, request):
         valid_loc_id_list = Address.objects.all().values_list('id', flat=True)
 
@@ -21,11 +25,13 @@ class Analysis(LoginRequiredMixin, View):
 
         locations = Address.objects.filter(id__in=random_loc_id_list)
 
+        # find average of price for 10 random location in tehran
         mean_prices = []
         for loc in locations:
             mean = Apartment.objects.filter(address=loc).aggregate(Avg('price'))['price__avg']
             mean_prices.append(mean / 10 ** 6)
 
+        # find average of price for house by 0 to 6 rooms
         mean_price_room = []
         for room in range(6):
             mean = Apartment.objects.filter(room=room).aggregate(Avg('price'))['price__avg']
@@ -39,8 +45,10 @@ class Analysis(LoginRequiredMixin, View):
 
         price_stats = {
             'tehran': Apartment.objects.all().aggregate(Avg('price'))['price__avg'] / 10 ** 9,
-            'tajrish': Apartment.objects.filter(address__name='Tajrish').aggregate(Avg('price'))['price__avg'] / 10 ** 9,
-            'pasdaran': Apartment.objects.filter(address__name='Pasdaran').aggregate(Avg('price'))['price__avg'] / 10 ** 9
+            'tajrish': Apartment.objects.filter(address__name='Tajrish').aggregate(Avg('price'))[
+                           'price__avg'] / 10 ** 9,
+            'pasdaran': Apartment.objects.filter(address__name='Pasdaran').aggregate(Avg('price'))[
+                            'price__avg'] / 10 ** 9
         }
 
         room_stats = {
@@ -49,15 +57,12 @@ class Analysis(LoginRequiredMixin, View):
             'pasdaran': Apartment.objects.filter(address__name='Pasdaran').aggregate(Avg('room'))['room__avg']
         }
 
-        count = []
-        for loc in Address.objects.all():
-            count.append((loc.name, len(Apartment.objects.filter(address=loc))))
-        count.sort(key=lambda item: -item[1])
+        ordered_address = Address.objects.all().annotate(Count('apartment')).order_by('-apartment__count')
 
         loc_stats = {
             'tehran': len(Address.objects.all()),
-            'first': count[0][0],
-            'second': count[-1][0],
+            'first': ordered_address.first().name,
+            'second': ordered_address.last().name,
         }
 
         return render(request, 'analysis.html', {

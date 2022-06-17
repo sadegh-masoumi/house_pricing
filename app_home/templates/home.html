@@ -1,22 +1,26 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% load static %}
 
 {% block header %}
     <div class="header">
-        <img class="main-img" src="{% static 'img/apartment.jpeg' %}">
-        <h1 class="title">KhaneYar <br> Analyze Then Buy Safe</h1>
+        <img class="main-img" alt="" src="{% static 'img/apartment.jpeg' %}">
+        <h1 class="title">ملک بان<br> تحلیل و خرید خانه در تهران</h1>
     </div>
 {% endblock %}
 
 {% block content %}
     <section class="service-section">
-        <h1 class="title">Services</h1>
+        <h1 class="title">خدمات</h1>
         <div class="services">
             <div class="service-card">
-                <h3>Apartments</h3>
-                <p>You can see many apartments with their information like address,
-                    number of rooms and etc. You also access to the price of house. </p>
+                <h3>{% trans "Apartments" %}</h3>
+                <p>
+                    {% blocktranslate %}
+                        You can see many apartments with their information like address,number of rooms
+                        and etc. You also access to the price of house.
+                    {% endblocktranslate %}
+                </p>
                 <img src="{% static 'img/city.jpeg' %}">
                 <a class="button" href="{% url 'apartment_list' %}">Let's Buy</a>
             </div>
