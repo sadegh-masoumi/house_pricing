@@ -13,8 +13,6 @@
 
 body {
     margin: 0;
-    direction: rtl;
-    text-align: right;
 }
 
 .nav {
@@ -427,7 +425,6 @@ input[type="password"] {
 
 input[type="submit"] {
     outline: none;
-    border: none;
     color: var(--back);
     background-color: var(--title);
     font-size: 1rem;
@@ -493,7 +490,7 @@ input[type="submit"]:hover {
 }
 
 .course:hover {
-    box-shadow: 0 0px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     transform: translateY(-5px);
 }
 

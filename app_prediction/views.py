@@ -29,12 +29,10 @@ class Prediction(LoginRequiredMixin, View):
         address = Address.objects.filter(
             name__icontains=address.lower()
         )
-
         if not address.exists():
             return render(request, 'prediction.html', {
                 'message': 'not_valid_address'
             })
-
         address = address[0].id
         price = predict(area,
                         room,
